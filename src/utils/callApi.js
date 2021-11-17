@@ -6,6 +6,10 @@ const callApi = (endPoint, method = 'GET', data = null) => {
         url: `${DOMAIN+endPoint}`,
         method,
         data,
-        headers: { 'Authorization': 'Bearer ' + localStorage.getItem('accessToken'), 'TokenCybersoft': 'Bearer ' + TOKEN_CYBERSOFT }
+        headers: {
+            // 'Authorization': 'Bearer ' + localStorage.getItem('accessToken'), 
+            'TokenCybersoft': 'Bearer ' + TOKEN_CYBERSOFT
+        }
     })
 }
+export default callApi;

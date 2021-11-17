@@ -1,22 +1,25 @@
-import React, { useEffect } from "react";
-import "./style.scss";
+import {
+  FacebookOutlined,
+  GoogleOutlined,
+  LockOutlined,
+  TwitterOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Button, Input } from "antd";
 import { withFormik } from "formik";
-import {
-  UserOutlined,
-  LockOutlined,
-  FacebookOutlined,
-  TwitterOutlined,
-  GoogleOutlined,
-} from "@ant-design/icons";
+import React from "react";
+import { connect } from "react-redux";
 import * as Yup from "yup";
+import Logo from "../../../../components/Logo/Logo";
+import { actLoginSaga } from "../module/action";
+import "./formLoginStyle.scss";
 function FormLogin(props) {
   const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
     props;
   return (
-    <form className="container formLogin">
+    <form onSubmit={handleSubmit} className="container formLogin">
       <div className="formLogin__content d-flex flex-column justify-content-center align-items-center">
-        <h1 className="jira-logo">jira</h1>
+        <Logo />
         <p className="jira-welcome">
           Welcome to jira.Please login to your account.
         </p>
@@ -38,7 +41,7 @@ function FormLogin(props) {
           prefix={<LockOutlined />}
         />
         <div className="text-danger">{errors.password}</div>
-        <Button size="large" className="mt-5 btn-login">
+        <Button size="large" htmlType="submit" className="mt-5 btn-login">
           Sign in
         </Button>
         <div className="or d-flex text-center mt-4 align-items-center flex-row">
@@ -92,13 +95,10 @@ const LoginJiraFormik = withFormik({
       .min(6, "password must have min 6 characters")
       .max(18, "password must have max 18 characters"),
   }),
-  handleSubmit: (values, { setSubmitting }) => {
-    // setTimeout(() => {
-    //   alert(JSON.stringify(values, null, 2));
-    //   setSubmitting(false);
-    // }, 1000);
+  handleSubmit: ({ email, password }, { props, setSubmitting }) => {
+    props.dispatch(actLoginSaga(email, password));
   },
 
   displayName: "BasicForm",
 })(FormLogin);
-export default LoginJiraFormik;
+export default connect()(LoginJiraFormik);

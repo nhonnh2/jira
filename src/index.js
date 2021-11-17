@@ -8,10 +8,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
+import store from "./store/index";
+import { Provider } from "react-redux";
+import "./style/main.scss";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

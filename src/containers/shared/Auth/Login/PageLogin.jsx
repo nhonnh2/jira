@@ -1,5 +1,6 @@
 import { Layout } from "antd";
 import React, { useEffect, useState } from "react";
+import Loader from "../../../../components/Loader/Loader";
 import LoginJiraFormik from "./FormLogin";
 import BackGroundLoggin from "./jiraLogin2.png";
 const { Sider, Content } = Layout;
@@ -31,6 +32,7 @@ export default function PageLogin() {
   });
   return (
     <>
+      <Loader />
       <Layout style={styleBackground}>
         <Sider width={width / 1.7} height={height} style={styleSider}></Sider>
         <Layout>
