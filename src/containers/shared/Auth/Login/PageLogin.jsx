@@ -15,7 +15,7 @@ const styleSider = {
 const styleBackground = {
   background: "rgb(2,132,153)",
   background:
-    "linear-gradient(356deg, rgb(0 115 133) 0%, rgba(0,170,198,1) 50%, rgba(150,240,255,0.8998949921765581) 100%)",
+    "linear-gradient(356deg, rgb(0, 115 ,133) 0%, rgba(0,170,198,1) 50%, rgba(150,240,255,0.8998949921765581) 100%)",
 };
 export default function PageLogin() {
   const [{ width, height }, setSize] = useState({

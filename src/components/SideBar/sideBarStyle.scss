@@ -1,0 +1,74 @@
+/* Sider Bar */
+
+.sideBar {
+    position: fixed;
+    height: 100vh;
+    z-index: 10;
+    background: rgb(2, 132, 153);
+    width: 4%;
+    transition: 0.2s;
+    &:hover {
+        width: 15%;
+        .sideBar-top {
+            .sideBar-icon {
+                &:first-child {
+                    padding: 0 40%;
+                    margin-top: 5%;
+                }
+                &:not(:first-child) {
+                    text-align: left;
+                    padding: 0;
+                    padding-left: 8%;
+                    cursor: pointer;
+                    .title {
+                        opacity: 1;
+                        color: white;
+                        font-weight: 500;
+                    }
+                    i {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+        .sideBar-bottom {
+            left: 0%;
+            width: 100%;
+            i {
+                margin-right: 10px;
+            }
+            .title {
+                opacity: 1;
+                color: white;
+                font-weight: 500;
+            }
+        }
+    }
+    .sideBar-icon {
+        margin-bottom: 10%;
+        padding: 0 18%;
+        i {
+            color: white;
+        }
+        .title {
+            opacity: 0;
+        }
+        &:not(:first-child) {
+            padding: 0 30%;
+            height: 30px;
+        }
+    }
+    .sideBar-top {
+        .sideBar-icon {
+            &:first-child {
+                padding-top: 20%;
+                font-size: 25px;
+            }
+        }
+    }
+    .sideBar-bottom {
+        position: absolute;
+        bottom: 3%;
+        left: 8%;
+    }
+}

@@ -1,0 +1,47 @@
+.modal-search {
+    margin: 0px !important;
+    text-align: left;
+    .modal-content {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        height: 100vh;
+        .modal-header {
+            border-bottom: none;
+            .search-block {
+                position: relative;
+                width: 100%;
+                .search {
+                    height: 32px;
+                    border: none;
+                    border-bottom: 2px solid #7094ce;
+                    padding-left: 32px;
+                    width: 100%;
+                }
+                .fa-search {
+                    position: absolute;
+                    left: 5%;
+                    top: 15%;
+                    color: #67748b;
+                }
+            }
+        }
+    }
+    .modal-body {
+        div {
+            height: 50px;
+            .icon {
+                padding: 3% 0px;
+                margin-right: 15px;
+            }
+            div {
+                p {
+                    margin: 0;
+                    font-size: 16px;
+                    &:last-child {
+                        color: grey;
+                    }
+                }
+            }
+        }
+    }
+}

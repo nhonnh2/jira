@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap');
 @import "Helpers/variable";
 @import "Helpers/mixin";
 @import "Base/reset";
 @import "Helpers/extend";
 @import "../components/Loader/loaderStyle.scss";
-@import "../containers/shared/Auth/Login/formLoginStyle.scss"
+@import "../containers/shared/Auth/Login/formLoginStyle.scss";
+@import "../components/SideBar/sideBarStyle.scss";
+@import "../components/Menu/menuStyle.scss";
+@import "../containers/client/MainBoard/mainBoard.scss";

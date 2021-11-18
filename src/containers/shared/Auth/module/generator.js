@@ -18,7 +18,7 @@ function* signinSaga(act) {
             yield put(actSetUserLogin(data.content));
             yield delay(500)
             yield put(actHideLoding())
-            history.push("/home")
+            history.push("/mainboard")
         }
     } catch (err) {
         console.log(err)

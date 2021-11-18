@@ -9,7 +9,6 @@ import historyReducer from "./historyReducer"
 const middleWareSaga = createMiddleWareSaga();
 const rootReducer = combineReducers({
     loaderReducer,
-    historyReducer,
     authReducer
 });
 const store = createStore(rootReducer,

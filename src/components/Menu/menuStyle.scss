@@ -1,0 +1,85 @@
+/* Menu */
+
+@import "./ModalSearch/modalSearchStyle.scss";
+.menu {
+    height: 100vh;
+    width: 18%;
+    margin-left: 4%;
+    background-color: #f4f5f7;
+    position: fixed;
+    .account {
+        display: flex;
+        padding: 5% 17%;
+        margin-bottom: 5%;
+        .avatar {
+            padding-top: 13%;
+            margin-right: 10px;
+        }
+        .account-info {
+            padding-top: 12%;
+            padding-bottom: 5%;
+            text-align: left;
+            p {
+                &:first-child {
+                    margin-bottom: 3px;
+                    font-weight: 500;
+                }
+                &:last-child {
+                    margin-top: 0px;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+    .control {
+        padding: 0% 10%;
+        text-align: left;
+        margin-bottom: 8%;
+        border-bottom: 2px solid #c4c5c6;
+        margin-left: 7%;
+        margin-right: 7%;
+        div {
+            margin-bottom: 10px;
+            padding: 2% 3%;
+            cursor: pointer;
+            i {
+                margin-right: 5px;
+            }
+            span {
+                &:first-child {
+                    margin-right: 10px;
+                    &:focus {
+                        background-color: #ebecf0;
+                    }
+                }
+            }
+            &:focus {
+                color: royalblue;
+            }
+        }
+    }
+    .feature {
+        padding: 0% 10%;
+        text-align: left;
+        margin-bottom: 8%;
+        margin-left: 7%;
+        margin-right: 7%;
+        div {
+            margin-bottom: 5px;
+            padding: 2% 3%;
+            cursor: pointer;
+            i {
+                margin-right: 5px;
+            }
+            span {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+.avatar {
+    img {
+        width: 50px;
+    }
+}

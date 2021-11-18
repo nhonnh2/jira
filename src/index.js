@@ -10,13 +10,19 @@ import reportWebVitals from "./reportWebVitals";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import store from "./store/index";
 import { Provider } from "react-redux";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./style/main.scss";
+import { Router } from "react-router-dom";
+import { history } from "./utils/history";
 
+// import "./style/style.css";
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <Router history={history}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
