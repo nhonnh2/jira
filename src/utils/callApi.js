@@ -1,5 +1,5 @@
 import axios from "axios"
-import { DOMAIN, TOKEN_CYBERSOFT } from "../settings/apiConfig"
+import { ACCESS_TOKEN, DOMAIN, TOKEN_CYBERSOFT } from "../settings/apiConfig"
 
 const callApi = (endPoint, method = 'GET', data = null) => {
     return axios({
@@ -7,8 +7,8 @@ const callApi = (endPoint, method = 'GET', data = null) => {
         method,
         data,
         headers: {
-            // 'Authorization': 'Bearer ' + localStorage.getItem('accessToken'), 
-            'TokenCybersoft': 'Bearer ' + TOKEN_CYBERSOFT
+            'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN),
+            'TokenCybersoft': TOKEN_CYBERSOFT
         }
     })
 }

@@ -10,7 +10,6 @@ const initialState = {
 }
 
 const authReducer = (state = initialState, { type, payload }) => {
-    console.log("payload", payload)
     switch (type) {
         case SETUSERLOGIN:
             localStorage.setItem(USER_LOGIN, JSON.stringify(payload))

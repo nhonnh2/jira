@@ -1,13 +1,13 @@
 import React from "react";
 import ModalSearch from "./ModalSearch/ModalSearch";
-
+import { NavLink } from "react-router-dom";
 export default function Menu() {
   return (
     <>
       <div className="menu">
         <div className="account">
           <div className="avatar">
-            <img src={require("../../assets/img/download.jfif").default} alt />
+            <img src={require("../../assets/img/download.jfif").default} />
           </div>
           <div className="account-info">
             <p>CyberLearn.vn</p>
@@ -17,11 +17,34 @@ export default function Menu() {
         <div className="control">
           <div>
             <i className="fa fa-credit-card" />
-            <span>Cyber Board</span>
+            <NavLink
+              to="/mainboard"
+              activeClassName="active font-weight-bold"
+              className="text-dark"
+            >
+              Cyber Board
+            </NavLink>
           </div>
           <div>
             <i className="fa fa-cog" />
-            <span>Project Settings</span>
+            <NavLink
+              to="/createproject"
+              activeClassName="active font-weight-bold"
+              className="text-dark"
+            >
+              Create Project
+            </NavLink>
+          </div>
+          <div>
+            <i className="fa fa-list" />
+
+            <NavLink
+              to="/managerproject"
+              activeClassName="active font-weight-bold"
+              className="text-dark"
+            >
+              Manager Project
+            </NavLink>
           </div>
         </div>
         <div className="feature">
