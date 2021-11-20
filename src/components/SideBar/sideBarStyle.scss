@@ -7,68 +7,39 @@
     background: rgb(2, 132, 153);
     width: 4%;
     transition: 0.2s;
-    &:hover {
-        width: 15%;
-        .sideBar-top {
-            .sideBar-icon {
-                &:first-child {
-                    padding: 0 40%;
-                    margin-top: 5%;
-                }
-                &:not(:first-child) {
-                    text-align: left;
-                    padding: 0;
-                    padding-left: 8%;
-                    cursor: pointer;
-                    .title {
-                        opacity: 1;
-                        color: white;
-                        font-weight: 500;
-                    }
-                    i {
-                        margin-right: 10px;
-                    }
-                }
-            }
-        }
-        .sideBar-bottom {
-            left: 0%;
-            width: 100%;
-            i {
-                margin-right: 10px;
-            }
-            .title {
-                opacity: 1;
-                color: white;
-                font-weight: 500;
-            }
+    color: white;
+    box-shadow: -10px 0px 25px 12px gray;
+    .logoJira {
+        font-size: 1.4rem;
+    }
+    .ant-menu-root {
+        background: transparent;
+    }
+    .paddingItem {
+        padding: 0.4rem 0 0.4rem 1rem;
+    }
+    .ant-menu-item-selected {
+        background-color: transparent !important;
+        &:hover {
+            background-color: rgb(66, 159, 173) !important;
         }
     }
-    .sideBar-icon {
-        margin-bottom: 10%;
-        padding: 0 18%;
-        i {
-            color: white;
+    .ant-menu-item {
+        svg {
+            color: rgba(255, 255, 255, 1) !important;
         }
-        .title {
-            opacity: 0;
+        span {
+            color: rgba(255, 255, 255, 1) !important;
         }
-        &:not(:first-child) {
-            padding: 0 30%;
-            height: 30px;
+        &:hover {
+            background-color: rgb(66, 159, 173);
         }
     }
-    .sideBar-top {
-        .sideBar-icon {
-            &:first-child {
-                padding-top: 20%;
-                font-size: 25px;
-            }
-        }
-    }
-    .sideBar-bottom {
-        position: absolute;
-        bottom: 3%;
-        left: 8%;
-    }
+}
+
+.ant-layout-sider-collapsed {
+    max-width: 57px !important;
+    min-width: 57px !important;
+    width: 57px !important;
+    box-shadow: none;
 }

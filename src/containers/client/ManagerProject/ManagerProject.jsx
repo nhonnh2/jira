@@ -5,7 +5,7 @@ import ReactHtmlParser from "react-html-parser";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { actGetAllProjectSaga } from "./module/action";
-const data = [];
+import withData from "../../../hocs/withData";
 export default function ManagerProject() {
   const { projectList } = useSelector((state) => state.projectManagerReducer);
   const ditpatch = useDispatch();
@@ -45,9 +45,24 @@ export default function ManagerProject() {
   filteredInfo = filteredInfo || {};
   const columns = [
     {
+      title: "id",
+      dataIndex: "id",
+      key: "id",
+      sorter: (item2, item1) => item2.id - item1.id,
+      sortDirections: ["ascend"],
+    },
+    {
       title: "ProjectName",
       dataIndex: "projectName",
       key: "projectName",
+      sorter: (item2, item1) => {
+        let projectName1 = item1.projectName?.trim().toLowerCase();
+        let projectName2 = item2.projectName?.trim().toLowerCase();
+        if (projectName2 < projectName1) {
+          return -1;
+        }
+        return 1;
+      },
       //   filters: [
       //     { text: "Joe", value: "Joe" },
       //     { text: "Jim", value: "Jim" },
@@ -91,17 +106,26 @@ export default function ManagerProject() {
       render: (text, record, index) => {
         return <span>{record.creator?.name}</span>;
       },
+      sorter: (item2, item1) => {
+        let creator1 = item1.creator?.name.trim().toLowerCase();
+        let creator2 = item2.creator?.name.trim().toLowerCase();
+        if (creator1 < creator2) {
+          return -1;
+        }
+        return 1;
+      },
+      sortDirections: ["descend"],
     },
     {
       title: "Action",
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          <a>
+          <a className="text-primary">
             {" "}
             <EditOutlined />
           </a>
-          <a>
+          <a className="text-danger">
             <DeleteOutlined />
           </a>
         </Space>
@@ -124,3 +148,4 @@ export default function ManagerProject() {
     </>
   );
 }
+withData;
