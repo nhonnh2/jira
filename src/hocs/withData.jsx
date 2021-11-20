@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 const withData = (WrappedComponent) => {
@@ -17,7 +18,7 @@ const withData = (WrappedComponent) => {
         });
     }, []);
 
-    if (data.length < 1) return <Loader />;
+    // if (data.length < 1) return <Loader />;
 
     return <WrappedComponent data={data} {...props} />;
   };

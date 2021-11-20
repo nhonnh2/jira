@@ -1,11 +1,12 @@
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import { Table, Button, Space } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import ReactHtmlParser from "react-html-parser";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import ModalEdit from "./modal/ModalEdit";
+import { actShowModalEditProject } from "../../../hocs/hocModalForm/module/action";
+
 import { actGetAllProjectSaga } from "./module/action";
-import withData from "../../../hocs/withData";
 export default function ManagerProject() {
   const { projectList } = useSelector((state) => state.projectManagerReducer);
   const ditpatch = useDispatch();
@@ -121,7 +122,12 @@ export default function ManagerProject() {
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          <a className="text-primary">
+          <a
+            className="text-primary"
+            onClick={() => {
+              ditpatch(actShowModalEditProject());
+            }}
+          >
             {" "}
             <EditOutlined />
           </a>
@@ -145,7 +151,7 @@ export default function ManagerProject() {
         dataSource={projectList}
         onChange={handleChange}
       />
+      <ModalEdit />
     </>
   );
 }
-withData;
