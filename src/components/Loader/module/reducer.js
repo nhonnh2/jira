@@ -5,7 +5,6 @@ const initialState = {
 }
 
 const loaderReducer = (state = initialState, { type, payload }) => {
-    console.log(state.isloading)
     switch (type) {
 
         case DISPLAY_LODING:

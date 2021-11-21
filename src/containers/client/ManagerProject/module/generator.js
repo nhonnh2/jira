@@ -7,7 +7,6 @@ import { GET_ALL_PROJECT_SAGA } from "./types";
 function* getAllProjectSaga() {
     try {
         const { data, status } = yield projectApi.getAllProjectApi();
-        console.log("data project", data)
         if (status === STATUS_CODE.SUCCESS) {
             yield put(actSetProjectList(data.content))
         }

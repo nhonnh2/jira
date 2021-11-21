@@ -1,11 +1,10 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Space, Table } from "antd";
+import { Button, Space, Table, Tag } from "antd";
 import React, { useEffect, useState } from "react";
 import ReactHtmlParser from "react-html-parser";
 import { useDispatch, useSelector } from "react-redux";
 import ModalEdit from "./modal/ModalEdit";
 import { actShowModalEditProject } from "../../../hocs/hocModalForm/module/action";
-
 import { actGetAllProjectSaga } from "./module/action";
 export default function ManagerProject() {
   const { projectList } = useSelector((state) => state.projectManagerReducer);
@@ -64,15 +63,6 @@ export default function ManagerProject() {
         }
         return 1;
       },
-      //   filters: [
-      //     { text: "Joe", value: "Joe" },
-      //     { text: "Jim", value: "Jim" },
-      //   ],
-      //   filteredValue: filteredInfo.name || null,
-      //   onFilter: (value, record) => record.name.includes(value),
-      //   sorter: (a, b) => a.name.length - b.name.length,
-      //   sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order,
-      //   ellipsis: true,
     },
     {
       title: "Description",
@@ -82,30 +72,18 @@ export default function ManagerProject() {
         let jsxContent = ReactHtmlParser(text);
         return <>{jsxContent}</>;
       },
-      //   sorter: (a, b) => a.age - b.age,
-      //   sortOrder: sortedInfo.columnKey === "age" && sortedInfo.order,
-      //   ellipsis: true,
     },
     {
       title: "Category Name",
       dataIndex: "categoryName",
       key: "categoryName",
-      //   filters: [
-      //     { text: "London", value: "London" },
-      //     { text: "New York", value: "New York" },
-      //   ],
-      //   filteredValue: filteredInfo.address || null,
-      //   onFilter: (value, record) => record.address.includes(value),
-      //   sorter: (a, b) => a.address.length - b.address.length,
-      //   sortOrder: sortedInfo.columnKey === "address" && sortedInfo.order,
-      //   ellipsis: true,
     },
     {
       title: "creator",
       // dataIndex: "categoryName",
       key: "creator",
       render: (text, record, index) => {
-        return <span>{record.creator?.name}</span>;
+        return <Tag color="green">{record.creator?.name}</Tag>;
       },
       sorter: (item2, item1) => {
         let creator1 = item1.creator?.name.trim().toLowerCase();
@@ -125,7 +103,8 @@ export default function ManagerProject() {
           <a
             className="text-primary"
             onClick={() => {
-              ditpatch(actShowModalEditProject());
+              console.log("record", record);
+              ditpatch(actShowModalEditProject(record));
             }}
           >
             {" "}

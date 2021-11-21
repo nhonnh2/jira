@@ -13,18 +13,19 @@ const withModalForm = (ComponentChild) => {
     const onClose = () => {
       dispatch(actCloseModalForm());
     };
+    const { handleSubmit } = props;
     return (
       <>
         <Drawer
           title={title}
-          width={720}
+          width={650}
           onClose={onClose}
           visible={visible}
           bodyStyle={{ paddingBottom: 80 }}
           footer={
             <Space>
               <Button onClick={onClose}>Cancel</Button>
-              <Button onClick={onClose} type="primary">
+              <Button onClick={handleSubmit} type="primary">
                 Submit
               </Button>
             </Space>

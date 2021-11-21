@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { STATUS_CODE } from "../../../settings/apiConfig";
 import { actCreateProjectSaga } from "./module/action";
 import EditorTinymce from "../../../utils/EditorTinymce";
+import CategoryProject from "../../../components/CategoryProject/CategoryProject";
 function CreateProject(props) {
   const {
     values,
@@ -17,21 +18,11 @@ function CreateProject(props) {
     handleBlur,
     handleSubmit,
   } = props;
-  const [category, setCategory] = useState([]);
 
   const handleEditorChange = (textNew, editor) => {
     setFieldValue("description", textNew);
   };
-  useEffect(async () => {
-    try {
-      const { data, status } = await projectApi.fetchCategoryApi();
-      if (status === STATUS_CODE.SUCCESS) {
-        setCategory(data.content);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
+
   return (
     <div className="createProject">
       <h4>CreateProject</h4>
@@ -45,18 +36,7 @@ function CreateProject(props) {
           <EditorTinymce onEditorChange={handleEditorChange} />
         </div>
         <div className="form-group">
-          <select name="categoryId" className="form-control" id="">
-            <option value="" disabled selected hidden>
-              Chọn loại dự án
-            </option>
-            {category?.map((category, idx) => {
-              return (
-                <option value={category.id} key={category.id}>
-                  {category.projectCategoryName}
-                </option>
-              );
-            })}
-          </select>
+          <CategoryProject name="categoryId" id="categoryId" />
           <div className="text-danger">{errors.categoryId}</div>
         </div>
         <button type="submit" className="btn btn-outline-primary" type="submit">
