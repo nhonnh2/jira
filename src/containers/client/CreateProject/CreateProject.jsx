@@ -36,7 +36,12 @@ function CreateProject(props) {
           <EditorTinymce onEditorChange={handleEditorChange} />
         </div>
         <div className="form-group">
-          <CategoryProject name="categoryId" id="categoryId" />
+          <CategoryProject
+            name="categoryId"
+            value=""
+            onChange={handleChange}
+            id="categoryId"
+          />
           <div className="text-danger">{errors.categoryId}</div>
         </div>
         <button type="submit" className="btn btn-outline-primary" type="submit">

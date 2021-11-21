@@ -1,21 +1,41 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Space, Table, Tag } from "antd";
+import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Space,
+  Table,
+  Tag,
+  Popconfirm,
+  Avatar,
+  Popover,
+  AutoComplete,
+} from "antd";
 import React, { useEffect, useState } from "react";
 import ReactHtmlParser from "react-html-parser";
 import { useDispatch, useSelector } from "react-redux";
-import ModalEdit from "./modal/ModalEdit";
+import ModalEdit from "./modal/ModalEdit/ModalEditProject";
 import { actShowModalEditProject } from "../../../hocs/hocModalForm/module/action";
-import { actGetAllProjectSaga } from "./module/action";
+import { actDeleteProject, actGetAllProjectSaga } from "./module/action";
+import ModalEditProject from "./modal/ModalEdit/ModalEditProject";
+import ConfirmDelete from "../../../components/ConfirmDelete/ConfirmDelete";
+import SearchDebounce from "../../../components/SearchDebounce/SearchDebounce";
+import {
+  actAddUserProjectSaga,
+  actGetUserSaga,
+} from "../../../components/SearchDebounce/module/actions";
+
 export default function ManagerProject() {
   const { projectList } = useSelector((state) => state.projectManagerReducer);
-  const ditpatch = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
-    ditpatch(actGetAllProjectSaga());
+    dispatch(actGetAllProjectSaga());
   }, []);
   const [state, setState] = useState({
     filteredInfo: null,
     sortedInfo: null,
   });
+  const handleDelete = (id) => {
+    dispatch(actDeleteProject(id));
+  };
   const handleChange = (pagination, filters, sorter) => {
     console.log("Various parameters", pagination, filters, sorter);
     setState({
@@ -64,15 +84,15 @@ export default function ManagerProject() {
         return 1;
       },
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-      render: (text, record, index) => {
-        let jsxContent = ReactHtmlParser(text);
-        return <>{jsxContent}</>;
-      },
-    },
+    // {
+    //   title: "Description",
+    //   dataIndex: "description",
+    //   key: "description",
+    //   render: (text, record, index) => {
+    //     let jsxContent = ReactHtmlParser(text);
+    //     return <>{jsxContent}</>;
+    //   },
+    // },
     {
       title: "Category Name",
       dataIndex: "categoryName",
@@ -96,6 +116,43 @@ export default function ManagerProject() {
       sortDirections: ["descend"],
     },
     {
+      title: "Members",
+      dataIndex: "members",
+      key: "members",
+      render: (text, record, index) => {
+        return (
+          <>
+            {record.members?.slice(0, 3).map((member, idx) => (
+              <Avatar key={idx} src={member.avatar} />
+            ))}
+            {record.members.length > 3 ? <Avatar>...</Avatar> : ""}
+            <Popover
+              placement="rightTop"
+              title={"Add member"}
+              content={() => (
+                // <AutoComplete
+                //   // options={options}
+                //   style={{ width: "100%" }}
+                //   // onSelect={onSelect}
+                //   // onSearch={onSearch}
+                //   placeholder="input member"
+                // />
+                <SearchDebounce
+                  placeholder="input member"
+                  actionSearch={actGetUserSaga}
+                  actionSelect={actAddUserProjectSaga}
+                  data={{ projectId: record.id }}
+                />
+              )}
+              trigger="click"
+            >
+              <Button shape="circle">+</Button>
+            </Popover>
+          </>
+        );
+      },
+    },
+    {
       title: "Action",
       key: "action",
       render: (text, record) => (
@@ -104,15 +161,17 @@ export default function ManagerProject() {
             className="text-primary"
             onClick={() => {
               console.log("record", record);
-              ditpatch(actShowModalEditProject(record));
+              dispatch(actShowModalEditProject(record));
             }}
           >
             {" "}
             <EditOutlined />
           </a>
-          <a className="text-danger">
-            <DeleteOutlined />
-          </a>
+          <ConfirmDelete
+            handleDelete={() => {
+              handleDelete(record.id);
+            }}
+          />
         </Space>
       ),
     },
@@ -130,7 +189,7 @@ export default function ManagerProject() {
         dataSource={projectList}
         onChange={handleChange}
       />
-      <ModalEdit />
+      <ModalEditProject />
     </>
   );
 }

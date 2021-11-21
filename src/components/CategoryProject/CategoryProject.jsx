@@ -4,10 +4,9 @@ import { STATUS_CODE } from "../../settings/apiConfig";
 
 export default function CategoryProject(props) {
   const [category, setCategory] = useState([]);
-  let { value, name, id, onChange } = props;
+  const { value, name, id, onChange } = props;
   let call = false;
   if (value === "" || value === null || value === undefined) {
-    value = "";
     call = true;
   }
   useEffect(async () => {
@@ -30,7 +29,7 @@ export default function CategoryProject(props) {
         onChange={onChange}
       >
         {call ? (
-          <option disabled hidden>
+          <option disabled hidden value="">
             Chọn loại dự án
           </option>
         ) : (

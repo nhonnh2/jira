@@ -1,4 +1,4 @@
-import { GET_ALL_PROJECT_SAGA, SET_PROJECT_LIST } from "./types"
+import { DELETE_PROJECT_SATA, GET_ALL_PROJECT_SAGA, SET_PROJECT_LIST } from "./types"
 
 export const actGetAllProjectSaga = () => {
     return {
@@ -10,4 +10,7 @@ export const actSetProjectList = (data) => {
         type: SET_PROJECT_LIST,
         payload: data
     }
+}
+export const actDeleteProject = (id) => {
+    return { type: DELETE_PROJECT_SATA, id }
 }

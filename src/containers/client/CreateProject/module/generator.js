@@ -6,13 +6,11 @@ import { CREATE_PROJECT_SAGA } from "./types";
 import { history } from "../../../../utils/history";
 
 function* createProjectSaga(action) {
-    yield put(actDisplayLoding())
     const { data } = action;
     try {
         const { status } = yield projectApi.createProjectApi(data);
         if (status === STATUS_CODE.SUCCESS) {
             console.log("dataCreateProjectSuccess");
-            yield put(actHideLoding());
             history.push("/managerproject")
         }
     } catch (err) {

@@ -1,13 +1,13 @@
 import { withFormik } from "formik";
 import React from "react";
 import { connect, useSelector } from "react-redux";
-import withModalForm from "../../../../hocs/hocModalForm/withModalForm";
-import EditorTinymce from "../../../../utils/EditorTinymce";
+import withModalForm from "../../../../../hocs/hocModalForm/withModalForm";
+import EditorTinymce from "../../../../../utils/EditorTinymce";
 import * as Yup from "yup";
-import CategoryProject from "../../../../components/CategoryProject/CategoryProject";
+import CategoryProject from "../../../../../components/CategoryProject/CategoryProject";
 import { actUpdateProjectSaga } from "./module/action";
 
-function ModalEdit(props) {
+function ModalEditProject(props) {
   const {
     values,
     touched,
@@ -98,7 +98,7 @@ const modalEditFormik = withFormik({
     props.dispatch(actUpdateProjectSaga(data));
   },
   displayName: "EditProject",
-})(withModalForm(ModalEdit));
+})(withModalForm(ModalEditProject));
 const mapStateToProps = (state) => ({
   projectEdit: state.modalFormReducer.data,
 });

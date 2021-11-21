@@ -8,12 +8,14 @@ import authReducer from "../containers/shared/Auth/module/reducer";
 import historyReducer from "./historyReducer"
 import modalFormReducer from "../hocs/hocModalForm/module/reducer"
 import projectManagerReducer from "../containers/client/ManagerProject/module/reducer";
+import searChDebouceReducer from "../components/SearchDebounce/module/reducer";
 const middleWareSaga = createMiddleWareSaga();
 const rootReducer = combineReducers({
     loaderReducer,
     authReducer,
     projectManagerReducer,
-    modalFormReducer
+    modalFormReducer,
+    searChDebouceReducer
 });
 const store = createStore(rootReducer,
     composeWithDevTools(applyMiddleware(thunk, middleWareSaga))

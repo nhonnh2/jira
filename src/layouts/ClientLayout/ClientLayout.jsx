@@ -9,19 +9,12 @@ function ClientLayout(props) {
   const { isloading } = useSelector((state) => state.loaderReducer);
   return (
     <>
-      {/* { component: Loader, delay: 500 } */}
-      {console.log("SideBar", SideBar)}
       <SideBar />
       <Menu />
-      {isloading ? (
-        <Loader />
-      ) : (
-        <div
-          style={{ paddingLeft: "23%", paddingTop: "2%", paddingRight: "1%" }}
-        >
-          {props.children}
-        </div>
-      )}
+      <Loader />
+      <div style={{ paddingLeft: "23%", paddingTop: "2%", paddingRight: "1%" }}>
+        {props.children}
+      </div>
     </>
   );
 }
