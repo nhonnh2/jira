@@ -33,7 +33,7 @@ export default function SearchDebounce(props) {
         onSelect={(valueSelect, option) => {
           setValue(option.label);
 
-          dispatch(actionSelect({ ...data, userId: valueSelect }));
+          dispatch(actionSelect({ ...data, valueSelect: valueSelect }));
         }}
         onSearch={onSearchHandle}
         placeholder={placeholder}

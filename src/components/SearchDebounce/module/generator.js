@@ -27,6 +27,9 @@ export function* followGetUserSaga() {
 //------------add User project Start ------------------
 function* addUserProjectSaga(action) {
     const { data } = action;
+    data['userId'] = data['valueSelect'];
+    delete data['valueSelect'];
+    console.log("data select user", data);
     try {
         const { status } = yield projectApi.assignUserProjectApi(data);
         if (status === STATUS_CODE.SUCCESS) {

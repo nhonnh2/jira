@@ -14,7 +14,11 @@ import ReactHtmlParser from "react-html-parser";
 import { useDispatch, useSelector } from "react-redux";
 import ModalEdit from "./modal/ModalEdit/ModalEditProject";
 import { actShowModalEditProject } from "../../../hocs/hocModalForm/module/action";
-import { actDeleteProject, actGetAllProjectSaga } from "./module/action";
+import {
+  actDeleteProject,
+  actGetAllProjectSaga,
+  actRemoveUserFromProjectSaga,
+} from "./module/action";
 import ModalEditProject from "./modal/ModalEdit/ModalEditProject";
 import ConfirmDelete from "../../../components/ConfirmDelete/ConfirmDelete";
 import SearchDebounce from "../../../components/SearchDebounce/SearchDebounce";
@@ -33,8 +37,11 @@ export default function ManagerProject() {
     filteredInfo: null,
     sortedInfo: null,
   });
-  const handleDelete = (id) => {
+  const handleDeleteProject = (id) => {
     dispatch(actDeleteProject(id));
+  };
+  const handleRemoveUserFromProject = (data) => {
+    dispatch(actRemoveUserFromProjectSaga(data));
   };
   const handleChange = (pagination, filters, sorter) => {
     console.log("Various parameters", pagination, filters, sorter);
@@ -122,21 +129,56 @@ export default function ManagerProject() {
       render: (text, record, index) => {
         return (
           <>
-            {record.members?.slice(0, 3).map((member, idx) => (
-              <Avatar key={idx} src={member.avatar} />
-            ))}
-            {record.members.length > 3 ? <Avatar>...</Avatar> : ""}
+            <Popover
+              placement="bottom"
+              title={"Table member"}
+              content={() => (
+                <>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Avata</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {record.members?.map((member, idx) => (
+                        <tr>
+                          <td>{member.userId}</td>
+                          <td>{member.name}</td>
+                          <td>
+                            <Avatar src={member.avatar} />
+                          </td>
+                          <td>
+                            <ConfirmDelete
+                              handleDelete={() => {
+                                handleRemoveUserFromProject({
+                                  projectId: record.id,
+                                  userId: member.userId,
+                                });
+                              }}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+              )}
+            >
+              <span style={{ cursor: "pointer" }}>
+                {record.members?.slice(0, 3).map((member, idx) => (
+                  <Avatar key={idx} src={member.avatar} />
+                ))}
+                {record.members.length > 3 ? <Avatar>...</Avatar> : ""}
+              </span>
+            </Popover>
             <Popover
               placement="rightTop"
               title={"Add member"}
               content={() => (
-                // <AutoComplete
-                //   // options={options}
-                //   style={{ width: "100%" }}
-                //   // onSelect={onSelect}
-                //   // onSearch={onSearch}
-                //   placeholder="input member"
-                // />
                 <SearchDebounce
                   placeholder="input member"
                   actionSearch={actGetUserSaga}
@@ -169,7 +211,7 @@ export default function ManagerProject() {
           </a>
           <ConfirmDelete
             handleDelete={() => {
-              handleDelete(record.id);
+              handleDeleteProject(record.id);
             }}
           />
         </Space>

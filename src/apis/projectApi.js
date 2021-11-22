@@ -6,6 +6,7 @@ const projectApi = {
     updateProjectApi(data) { return callApi(`Project/updateProject?projectId=${data.id}`, "PUT", data) },
     deleteProjectApi(id) { return callApi(`Project/deleteProject?projectId=${id}`, "DELETE") },
     assignUserProjectApi(data) { return callApi("Project/assignUserProject", "POST", data) },
+    removeUserFromProject(data) { return callApi("Project/removeUserFromProject", "POST", data) },
 }
 
 export default projectApi
