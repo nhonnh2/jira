@@ -9,12 +9,16 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { actShowModalCreateTask } from "../../hocs/hocModalForm/module/action";
+import ModalCreateTask from "./modal/ModalCreateTask/ModalCreateTask";
 
 const { Header, Sider, Content } = Layout;
 export default function SideBar() {
   const [state, setState] = useState({
     collapsed: true,
   });
+  const disPatch = useDispatch();
   const handleOnMouseEnter = () => {
     setState({
       collapsed: false,
@@ -43,7 +47,13 @@ export default function SideBar() {
           <Menu.Item key="1" icon={<SearchOutlined />}>
             RECENT ISSUES
           </Menu.Item>
-          <Menu.Item key="2" icon={<PlusOutlined />}>
+          <Menu.Item
+            key="2"
+            onClick={() => {
+              disPatch(actShowModalCreateTask());
+            }}
+            icon={<PlusOutlined />}
+          >
             CREATE ISSUS
           </Menu.Item>
           <Menu.Item
@@ -55,6 +65,7 @@ export default function SideBar() {
           </Menu.Item>
         </Menu>
       </Sider>
+      <ModalCreateTask />
     </>
   );
 }

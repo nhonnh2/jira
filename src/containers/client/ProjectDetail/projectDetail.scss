@@ -1,0 +1,105 @@
+@import "./ModalInfoTaskProjectDetail/modalInfoTaskStyle.scss";
+.main {
+    .header {
+        .breadcrumb {
+            margin-bottom: 0;
+            padding-left: 0px;
+        }
+    }
+    h4 {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    .info {
+        .search-block {
+            position: relative;
+            .search {
+                height: 32px;
+                width: 200px;
+                background-color: rgb(250, 251, 252);
+                border: 2px solid rgb(223, 225, 230);
+                border-radius: 3px;
+                padding-left: 32px;
+            }
+            .fa-search {
+                position: absolute;
+                left: 5%;
+                top: 15%;
+                color: #67748b;
+            }
+        }
+        .avatar-group {
+            margin-left: 20px;
+        }
+        .text {
+            text-align: center;
+            line-height: 35px;
+        }
+    }
+    .content {
+        margin-top: 20px;
+        flex-wrap: wrap;
+        .card {
+            margin-bottom: 2%;
+            margin-right: 10px;
+            background-color: #f4f5f7;
+            width: 23.5%;
+            .card-header {
+                border: none;
+                background-color: transparent;
+                color: #5e6c84;
+            }
+            .list-group {
+                border: none;
+                .list-group-item {
+                    margin: 5px;
+                }
+            }
+        }
+    }
+}
+
+.avatar-group {
+    .avatar {
+        img {
+            width: 40px;
+            border: 1px solid transparent;
+            height: 40px;
+            border-radius: 50%;
+        }
+    }
+}
+
+.avatar {
+    img {
+        width: 40px;
+        border: 1px solid transparent;
+        height: 40px;
+        border-radius: 50%;
+    }
+}
+
+.list-group-item {
+    text-align: left;
+    .block {
+        justify-content: space-between;
+        .block-left {
+            line-height: 40px;
+            i {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.fa-bookmark {
+    color: #5fb03e;
+}
+
+.fa-arrow-up {
+    color: #d85463;
+}
+
+.fa-check-square {
+    color: #62a0ce;
+}

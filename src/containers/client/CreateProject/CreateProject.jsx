@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Editor } from "@tinymce/tinymce-react";
 import { withFormik } from "formik";
-import projectApi from "../../../apis/projectApi";
+import React from "react";
 import { connect } from "react-redux";
 import * as Yup from "yup";
-import { STATUS_CODE } from "../../../settings/apiConfig";
+import CategoryProjectSelect from "../../../components/CategoryProjectSelect/CategoryProjectSelect";
+import EditorTinymce from "../../../components/EditorTinymce/EditorTinymce";
 import { actCreateProjectSaga } from "./module/action";
-import EditorTinymce from "../../../utils/EditorTinymce";
-import CategoryProject from "../../../components/CategoryProject/CategoryProject";
 function CreateProject(props) {
   const {
     values,
@@ -33,13 +30,23 @@ function CreateProject(props) {
         </div>
         <div className="form-group">
           <p>Description</p>
-          <EditorTinymce onEditorChange={handleEditorChange} />
+          <EditorTinymce
+            onEditorChange={handleEditorChange}
+            name="description"
+          />
         </div>
         <div className="form-group">
-          <CategoryProject
+          {/* <CategoryProjectSelect
             name="categoryId"
             value=""
             onChange={handleChange}
+            id="categoryId"
+          /> */}
+          <CategoryProjectSelect
+            name="categoryId"
+            onChange={(value) => {
+              setFieldValue("categoryId", value);
+            }}
             id="categoryId"
           />
           <div className="text-danger">{errors.categoryId}</div>

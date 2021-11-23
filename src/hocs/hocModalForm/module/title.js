@@ -1,1 +1,1 @@
-export const [TITLE_EDIT_PROTJECT] = ["Chỉnh sử project"];
+export const [TITLE_EDIT_PROTJECT, TITLE_CREARTE_TASK] = ["Chỉnh sử project", "Thêm task"];

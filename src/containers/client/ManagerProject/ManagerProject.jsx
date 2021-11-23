@@ -26,6 +26,7 @@ import {
   actAddUserProjectSaga,
   actGetUserSaga,
 } from "../../../components/SearchDebounce/module/actions";
+import { NavLink } from "react-router-dom";
 
 export default function ManagerProject() {
   const { projectList } = useSelector((state) => state.projectManagerReducer);
@@ -82,6 +83,13 @@ export default function ManagerProject() {
       title: "ProjectName",
       dataIndex: "projectName",
       key: "projectName",
+      render: (text, record, index) => {
+        return (
+          <NavLink to={`./projectdetail/${record.id}`}>
+            {record.projectName}
+          </NavLink>
+        );
+      },
       sorter: (item2, item1) => {
         let projectName1 = item1.projectName?.trim().toLowerCase();
         let projectName2 = item2.projectName?.trim().toLowerCase();
@@ -130,6 +138,7 @@ export default function ManagerProject() {
         return (
           <>
             <Popover
+              key={`tablemember${record.id}`}
               placement="bottom"
               title={"Table member"}
               content={() => (
@@ -176,6 +185,7 @@ export default function ManagerProject() {
               </span>
             </Popover>
             <Popover
+              key={`addmember${record.id}`}
               placement="rightTop"
               title={"Add member"}
               content={() => (
@@ -220,6 +230,7 @@ export default function ManagerProject() {
   ];
   return (
     <>
+      <h4>Project Manager</h4>
       <Space style={{ marginBottom: 16 }}>
         <Button onClick={setAgeSort}>Sort age</Button>
         <Button onClick={clearFilters}>Clear filters</Button>

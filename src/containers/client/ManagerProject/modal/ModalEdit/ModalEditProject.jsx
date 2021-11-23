@@ -1,10 +1,11 @@
 import { withFormik } from "formik";
 import React from "react";
-import { connect, useSelector } from "react-redux";
-import withModalForm from "../../../../../hocs/hocModalForm/withModalForm";
-import EditorTinymce from "../../../../../utils/EditorTinymce";
+import { connect } from "react-redux";
 import * as Yup from "yup";
-import CategoryProject from "../../../../../components/CategoryProject/CategoryProject";
+import CategoryProjectSelect from "../../../../../components/CategoryProjectSelect/CategoryProjectSelect";
+import EditorTinymce from "../../../../../components/EditorTinymce/EditorTinymce";
+import { SHOW_MODAL_EDIT_PROJECT } from "../../../../../hocs/hocModalForm/module/types";
+import withModalForm from "../../../../../hocs/hocModalForm/withModalForm";
 import { actUpdateProjectSaga } from "./module/action";
 
 function ModalEditProject(props) {
@@ -28,7 +29,7 @@ function ModalEditProject(props) {
           <div className="row">
             <div className="col-4 form-group ">
               <label htmlFor="idProject" className="font-weight-bolder">
-                id
+                Id
               </label>
               <input
                 type="text"
@@ -56,18 +57,22 @@ function ModalEditProject(props) {
               <label htmlFor="projectCategory" className="font-weight-bolder">
                 Project Category
               </label>
-              <CategoryProject
+
+              <CategoryProjectSelect
                 name="categoryId"
                 value={values.categoryId}
-                id="projectCategory"
-                onChange={handleChange}
+                onChange={(value) => {
+                  setFieldValue("categoryId", value);
+                }}
+                id="categoryId"
               />
             </div>
 
             <div className="col-12 form-group">
               <EditorTinymce
+                name="description"
                 onEditorChange={handleEditorChange}
-                initialValue={values.description}
+                value={values.description}
               />
             </div>
           </div>
@@ -98,7 +103,7 @@ const modalEditFormik = withFormik({
     props.dispatch(actUpdateProjectSaga(data));
   },
   displayName: "EditProject",
-})(withModalForm(ModalEditProject));
+})(withModalForm(ModalEditProject, SHOW_MODAL_EDIT_PROJECT));
 const mapStateToProps = (state) => ({
   projectEdit: state.modalFormReducer.data,
 });

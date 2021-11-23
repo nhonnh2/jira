@@ -5,7 +5,7 @@ export default function EditorTinymce(props) {
   const editorRef = useRef(null);
   return (
     <Editor
-      name="description"
+      
       onInit={(evt, editor) => (editorRef.current = editor)}
       init={{
         height: 500,

@@ -3,12 +3,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actCloseModalForm } from "./module/action";
 
-const withModalForm = (ComponentChild) => {
+const withModalForm = (ComponentChild, typeInput) => {
   return (props) => {
-    const { title, visible } = useSelector((state) => {
+    const { title, type } = useSelector((state) => {
       return state.modalFormReducer;
     });
-
+    const visible = type === typeInput;
     const dispatch = useDispatch();
     const onClose = () => {
       dispatch(actCloseModalForm());
@@ -18,7 +18,7 @@ const withModalForm = (ComponentChild) => {
       <>
         <Drawer
           title={title}
-          width={650}
+          width={550}
           onClose={onClose}
           visible={visible}
           bodyStyle={{ paddingBottom: 80 }}
