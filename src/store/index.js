@@ -10,6 +10,7 @@ import modalFormReducer from "../hocs/hocModalForm/module/reducer"
 import projectManagerReducer from "../containers/client/ManagerProject/module/reducer";
 import searChDebouceReducer from "../components/SearchDebounce/module/reducer";
 import projectDetailReducer from "../containers/client/ProjectDetail/module/reducer";
+import taskReducer from "../containers/client/ProjectDetail/ModalInfoTaskProjectDetail/module/reducer";
 const middleWareSaga = createMiddleWareSaga();
 const rootReducer = combineReducers({
     loaderReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     projectManagerReducer,
     modalFormReducer,
     searChDebouceReducer,
-    projectDetailReducer
+    projectDetailReducer,
+    taskReducer
 });
 const store = createStore(rootReducer,
     composeWithDevTools(applyMiddleware(thunk, middleWareSaga))

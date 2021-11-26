@@ -1,0 +1,121 @@
+/* Menu */
+.modal-search {
+  margin: 0px !important;
+  text-align: left;
+}
+.modal-search .modal-content {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  height: 100vh;
+}
+.modal-search .modal-content .modal-header {
+  border-bottom: none;
+}
+.modal-search .modal-content .modal-header .search-block {
+  position: relative;
+  width: 100%;
+}
+.modal-search .modal-content .modal-header .search-block .search {
+  height: 32px;
+  border: none;
+  border-bottom: 2px solid #7094ce;
+  padding-left: 32px;
+  width: 100%;
+}
+.modal-search .modal-content .modal-header .search-block .fa-search {
+  position: absolute;
+  left: 5%;
+  top: 15%;
+  color: #67748b;
+}
+.modal-search .modal-body div {
+  height: 50px;
+}
+.modal-search .modal-body div .icon {
+  padding: 3% 0px;
+  margin-right: 15px;
+}
+.modal-search .modal-body div div p {
+  margin: 0;
+  font-size: 16px;
+}
+.modal-search .modal-body div div p:last-child {
+  color: grey;
+}
+
+.menu {
+  height: 100vh;
+  width: 18%;
+  margin-left: 4%;
+  background-color: #f4f5f7;
+  position: fixed;
+}
+.menu .account {
+  display: flex;
+  padding: 5% 17%;
+  margin-bottom: 5%;
+}
+.menu .account .avatar {
+  padding-top: 13%;
+  margin-right: 10px;
+}
+.menu .account .account-info {
+  padding-top: 12%;
+  padding-bottom: 5%;
+  text-align: left;
+}
+.menu .account .account-info p:first-child {
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+.menu .account .account-info p:last-child {
+  margin-top: 0px;
+  font-weight: 300;
+}
+.menu .control {
+  padding: 0% 10%;
+  text-align: left;
+  margin-bottom: 8%;
+  border-bottom: 2px solid #c4c5c6;
+  margin-left: 7%;
+  margin-right: 7%;
+}
+.menu .control div {
+  margin-bottom: 10px;
+  padding: 2% 3%;
+  cursor: pointer;
+}
+.menu .control div i {
+  margin-right: 5px;
+}
+.menu .control div span:first-child {
+  margin-right: 10px;
+}
+.menu .control div span:first-child:focus {
+  background-color: #ebecf0;
+}
+.menu .control div:focus {
+  color: royalblue;
+}
+.menu .feature {
+  padding: 0% 10%;
+  text-align: left;
+  margin-bottom: 8%;
+  margin-left: 7%;
+  margin-right: 7%;
+}
+.menu .feature div {
+  margin-bottom: 5px;
+  padding: 2% 3%;
+  cursor: pointer;
+}
+.menu .feature div i {
+  margin-right: 5px;
+}
+.menu .feature div span {
+  font-size: 14px;
+}
+
+.avatar img {
+  width: 50px;
+}/*# sourceMappingURL=menuStyle.css.map */

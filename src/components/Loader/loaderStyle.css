@@ -1,0 +1,62 @@
+.jiraLoader {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 20;
+  background-color: rgba(224, 233, 238, 0.658);
+}
+.jiraLoader .jiraLoader-content {
+  display: inline-block;
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.jiraLoader .jiraLoader-content div {
+  display: inline-block;
+  position: absolute;
+  left: 0.6rem;
+  width: 0.5rem;
+  background: linear-gradient(32deg, #296d8a 0%, #4091af 50%, #8debfd 100%);
+  -webkit-animation: jiraLoader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+          animation: jiraLoader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.jiraLoader .jiraLoader-content div:nth-child(1) {
+  left: 0.6em;
+  -webkit-animation-delay: -0.24s;
+          animation-delay: -0.24s;
+}
+.jiraLoader .jiraLoader-content div:nth-child(2) {
+  left: 2em;
+  -webkit-animation-delay: -0.12s;
+          animation-delay: -0.12s;
+}
+.jiraLoader .jiraLoader-content div:nth-child(3) {
+  left: 3.5em;
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+}
+
+@-webkit-keyframes jiraLoader {
+  0% {
+    top: 0.6em;
+    height: 3rem;
+  }
+  50%, 100% {
+    top: 1.6em;
+    height: 1.5rem;
+  }
+}
+
+@keyframes jiraLoader {
+  0% {
+    top: 0.6em;
+    height: 3rem;
+  }
+  50%, 100% {
+    top: 1.6em;
+    height: 1.5rem;
+  }
+}/*# sourceMappingURL=loaderStyle.css.map */

@@ -10,6 +10,7 @@ export default function ModalInfoTask() {
         role="dialog"
         aria-labelledby="infoModal"
         aria-hidden="true"
+        onHide={console.log("ONHIDE ONHIDE ONHIDE ONHIDE ONHIDE ONHIDE")}
       >
         <div className="modal-dialog modal-info">
           <div className="modal-content">

@@ -1,6 +1,32 @@
-import React from "react";
+import { withFormik } from "formik";
+import React, { useState } from "react";
+import ReactHtmlParser from "react-html-parser";
+import { connect, useSelector } from "react-redux";
+import AssigneesSelect from "../../../../components/AssigneesSelect/AssigneesSelect";
+import PrioritySelect from "../../../../components/PrioritySelect/PrioritySelect";
+import StatusSelect from "../../../../components/StatusSelect/StatusSelect";
+import * as Yup from "yup";
+import TimeTracking from "../../../../components/TimeTracking/TimeTracking";
+import { Input } from "antd";
+import TaskTypeSelect from "../../../../components/TaskTypeSelect/TaskTypeSelect";
+import { actUpdateTaskSaga } from "./module/action";
+import EditorTinymce from "../../../../components/EditorTinymce/EditorTinymce";
 
-export default function ModalInfoTask() {
+function ModalInfoTask(props) {
+  const {
+    values,
+    touched,
+    errors,
+    handleChange,
+    setFieldValue,
+    handleBlur,
+    handleSubmit,
+  } = props;
+  const { taskDetalModal } = useSelector((state) => state.taskReducer);
+  const [visibleEditor, setVisibleEditor] = useState(false);
+  const handleEditorChange = (textNew, editor) => {
+    setFieldValue("description", textNew);
+  };
   return (
     <>
       <div
@@ -10,14 +36,23 @@ export default function ModalInfoTask() {
         role="dialog"
         aria-labelledby="infoModal"
         aria-hidden="true"
+        // onHide={console.log("ONHIDE ONHIDE ONHIDE ONHIDE ONHIDE ONHIDE")}
       >
         <div className="modal-dialog modal-info">
           <div className="modal-content">
             <div className="modal-header">
-              <div className="task-title">
-                <i className="fa fa-bookmark" />
-                <span>TASK-217871</span>
+              <div className="col-2">
+                <TaskTypeSelect
+                  name="typeId"
+                  onChange={(value) => {
+                    setFieldValue("typeId", value);
+                  }}
+                  id="typeId"
+                  value={values.typeId}
+                />
               </div>
+              <h4>{taskDetalModal.taskName}</h4>
+
               <div style={{ display: "flex" }} className="task-click">
                 <div>
                   <i className="fab fa-telegram-plane" />
@@ -45,48 +80,23 @@ export default function ModalInfoTask() {
                     <p className="issue">This is an issue of type: Task.</p>
                     <div className="description">
                       <p>Description</p>
-                      <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Esse expedita quis vero tempora error sed
-                        reprehenderit sequi laborum, repellendus quod laudantium
-                        tenetur nobis modi reiciendis sint architecto. Autem
-                        libero quibusdam odit assumenda fugiat? Beatae aliquid
-                        labore vitae obcaecati sapiente asperiores quia amet id
-                        aut, natus quo molestiae quod voluptas, temporibus iusto
-                        laudantium sit tempora sequi. Rem, itaque id, fugit
-                        magnam asperiores voluptas consectetur aliquid vel error
-                        illum, delectus eum eveniet laudantium at repudiandae!
-                      </p>
+                      {visibleEditor ? (
+                        <EditorTinymce
+                          name="description"
+                          onEditorChange={handleEditorChange}
+                          value={values.description}
+                        />
+                      ) : (
+                        <div
+                          onClick={() => {
+                            setVisibleEditor(true);
+                          }}
+                        >
+                          {ReactHtmlParser(taskDetalModal.description)}
+                        </div>
+                      )}
                     </div>
-                    <div style={{ fontWeight: 500, marginBottom: 10 }}>
-                      Jira Software (software projects) issue types:
-                    </div>
-                    <div className="title">
-                      <div className="title-item">
-                        <h3>
-                          BUG <i className="fa fa-bug" />
-                        </h3>
-                        <p>
-                          A bug is a problem which impairs or prevents the
-                          function of a product.
-                        </p>
-                      </div>
-                      <div className="title-item">
-                        <h3>
-                          STORY <i className="fa fa-book-reader" />
-                        </h3>
-                        <p>
-                          A user story is the smallest unit of work that needs
-                          to be done.
-                        </p>
-                      </div>
-                      <div className="title-item">
-                        <h3>
-                          TASK <i className="fa fa-tasks" />
-                        </h3>
-                        <p>A task represents work that needs to be done</p>
-                      </div>
-                    </div>
+
                     <div className="comment">
                       <h6>Comment</h6>
                       <div
@@ -158,103 +168,69 @@ export default function ModalInfoTask() {
                     </div>
                   </div>
                   <div className="col-4">
-                    <div className="status">
+                    <div className="status" style={{ marginBottom: 20 }}>
                       <h6>STATUS</h6>
-                      <select className="custom-select">
-                        <option value={""}>SELECTED FOR DEVELOPMENT</option>
-                        <option value={1}>One</option>
-                        <option value={2}>Two</option>
-                        <option value={3}>Three</option>
-                      </select>
+                      <StatusSelect
+                        name="statusId"
+                        onChange={(value) => {
+                          setFieldValue("statusId", value);
+                        }}
+                        id="statusId"
+                        value={values.statusId}
+                      />
                     </div>
-                    <div className="assignees">
+                    <div className="assignees" style={{ marginBottom: 20 }}>
                       <h6>ASSIGNEES</h6>
-                      <div style={{ display: "flex" }}>
-                        <div style={{ display: "flex" }} className="item">
-                          <div className="avatar">
-                            <img
-                              src={
-                                require("../../../../assets/img/download(1).jfif")
-                                  .default
-                              }
-                            />
-                          </div>
-                          <p className="name">
-                            Pickle Rick
-                            <i
-                              className="fa fa-times"
-                              style={{ marginLeft: 5 }}
-                            />
-                          </p>
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <i
-                            className="fa fa-plus"
-                            style={{ marginRight: 5 }}
-                          />
-                          <span>Add more</span>
-                        </div>
-                      </div>
+                      <AssigneesSelect
+                        projectId={Number(values.projectId)}
+                        name="listUserAsign"
+                        onChange={(value) => {
+                          setFieldValue("listUserAsign", value);
+                        }}
+                        id="listUserAsign"
+                        value={values.listUserAsign}
+                      />
                     </div>
-                    <div className="reporter">
-                      <h6>REPORTER</h6>
-                      <div style={{ display: "flex" }} className="item">
-                        <div className="avatar">
-                          <img
-                            src={
-                              require("../../../../assets/img/download(1).jfif")
-                                .default
-                            }
-                          />
-                        </div>
-                        <p className="name">
-                          Pickle Rick
-                          <i
-                            className="fa fa-times"
-                            style={{ marginLeft: 5 }}
-                          />
-                        </p>
-                      </div>
-                    </div>
+
                     <div className="priority" style={{ marginBottom: 20 }}>
                       <h6>PRIORITY</h6>
-                      <select>
-                        <option>Highest</option>
-                        <option>Medium</option>
-                        <option>Low</option>
-                        <option>Lowest</option>
-                      </select>
+                      <PrioritySelect
+                        name="priorityId"
+                        onChange={(value) => {
+                          setFieldValue("priorityId", value);
+                        }}
+                        id="priorityId"
+                        value={values.priorityId}
+                      />
                     </div>
-                    <div className="estimate">
-                      <h6>ORIGINAL ESTIMATE (HOURS)</h6>
-                      <input type="text" className="estimate-hours" />
+                    <div className="originalEstimate">
+                      <label
+                        htmlFor="originalEstimate"
+                        className="font-weight-bold"
+                      >
+                        Original Estimate
+                      </label>
+                      <Input
+                        value={values.originalEstimate}
+                        type="number"
+                        name="originalEstimate"
+                        id="originalEstimate"
+                        className="form-control"
+                        onChange={(e) => {
+                          setFieldValue(
+                            "originalEstimate",
+                            Number(e.target.value)
+                          );
+                        }}
+                      />
                     </div>
-                    <div className="time-tracking">
-                      <h6>TIME TRACKING</h6>
-                      <div style={{ display: "flex" }}>
-                        <i className="fa fa-clock" />
-                        <div style={{ width: "100%" }}>
-                          <div className="progress">
-                            <div
-                              className="progress-bar"
-                              role="progressbar"
-                              style={{ width: "25%" }}
-                              aria-valuenow={25}
-                              aria-valuemin={0}
-                              aria-valuemax={100}
-                            />
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <p className="logged">4h logged</p>
-                            <p className="estimate-time">12h estimated</p>
-                          </div>
-                        </div>
-                      </div>
+                    <div className="timeTracking">
+                      <TimeTracking
+                        timeTrackingSpent={values.timeTrackingSpent}
+                        timeTrackingRemaining={values.timeTrackingRemaining}
+                        errors={errors}
+                        setFieldValue={setFieldValue}
+                      />
                     </div>
                     <div style={{ color: "#929398" }}>
                       Create at a month ago
@@ -266,9 +242,56 @@ export default function ModalInfoTask() {
                 </div>
               </div>
             </div>
+            <div className="modal-footer">
+              <button className="btn btn-primary" onClick={handleSubmit}>
+                Lưu
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </>
   );
 }
+const EditTaskFormik = withFormik({
+  enableReinitialize: true, //mỗi lần render laij chayj laij mapPropsTovalues
+  mapPropsToValues: (props) => {
+    const { taskDetalModal, projectDetail } = props;
+    console.log("props modal info task", props);
+    return {
+      taskName: taskDetalModal.taskName ?? "",
+      projectId: projectDetail.id ?? "",
+      priorityId: taskDetalModal.priorityTask?.priorityId ?? "",
+      originalEstimate: taskDetalModal.originalEstimate ?? 0,
+      timeTrackingSpent: taskDetalModal.timeTrackingSpent ?? 0,
+      timeTrackingRemaining: taskDetalModal.timeTrackingRemaining ?? 0,
+      typeId: taskDetalModal.taskTypeDetail?.id ?? "",
+      statusId: taskDetalModal.statusId ?? "",
+      listUserAsign: taskDetalModal.assigness ?? [],
+      description: taskDetalModal.description ?? "",
+
+      // categoryId:props.category[0]
+    };
+  },
+  validationSchema: Yup.object().shape({
+    priorityId: Yup.string().required("priority is required"),
+    taskName: Yup.string().required("taskName is required"),
+    originalEstimate: Yup.number().integer().min(1),
+    timeTrackingSpent: Yup.number().integer().min(1),
+    timeTrackingRemaining: Yup.number().integer().min(1),
+    typeId: Yup.string().required("type is required"),
+    statusId: Yup.string().required("status is required"),
+    listUserAsign: Yup.array().min(1, "listUserAsign empty"),
+    description: Yup.string().required("description is required"),
+  }),
+  handleSubmit: (data, { props, setSubmitting }) => {
+    console.log("data Update task", data);
+    props.dispatch(actUpdateTaskSaga(data));
+  },
+  displayName: "UpdateTask",
+})(ModalInfoTask);
+const mapStateToProps = (state) => ({
+  taskDetalModal: state.taskReducer.taskDetalModal,
+  projectDetail: state.projectDetailReducer.projectDetail,
+});
+export default connect(mapStateToProps)(EditTaskFormik);

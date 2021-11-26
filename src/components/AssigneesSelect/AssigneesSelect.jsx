@@ -11,7 +11,7 @@ function AssignessSelect(props) {
   const { value, name, id, onChange, projectId } = props;
   const listAll = props.list;
   const [list, setList] = useState(props.list);
-  console.log(list);
+  console.log("value AssignessSelect", value);
   const options = list?.map((item, idx) => ({
     label: item.name,
     value: item.userId,
@@ -20,21 +20,19 @@ function AssignessSelect(props) {
     try {
       const { data, status } = await userApi.getUserByProjectIdApi(projectId);
       if (status === STATUS_CODE.SUCCESS) {
-        console.log("data option assignees success", data.content);
         setList(data.content);
       }
     } catch (err) {
-      console.log("data option assignees fail", listAll);
       setList(listAll);
     }
   }, [projectId]);
-  console.log("data option assignees", listAll);
+  const listAssigness = value?.map((item, idx) => item.name);
   return (
     <>
       <Select
         id={id}
         name={name}
-        value={value}
+        value={listAssigness}
         onChange={onChange}
         mode="multiple"
         options={options}

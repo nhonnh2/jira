@@ -12,6 +12,7 @@ import PrioritySelect from "../../../PrioritySelect/PrioritySelect";
 import ProjectSelect from "../../../ProjectSelect/ProjectSelect";
 import StatusSelect from "../../../StatusSelect/StatusSelect";
 import TaskTypeSelect from "../../../TaskTypeSelect/TaskTypeSelect";
+import TimeTracking from "../../../TimeTracking/TimeTracking";
 import { actCreateTaskSaga } from "./module/action";
 const { Option } = Select;
 
@@ -33,10 +34,7 @@ function ModalCreateTask(props) {
   // function handleChange(value) {
   //   console.log(`Selected: ${value}`);
   // }
-  const [timeTracking, setTimeTracking] = useState({
-    timeSpent: 0,
-    timeRemaining: 0,
-  });
+
   const [projectId, setProjectId] = useState("");
   return (
     <>
@@ -150,67 +148,12 @@ function ModalCreateTask(props) {
             </div>
           </div>
         </div>
-        <div className="form-group mt-3">
-          <label htmlFor="timeTracking" className="font-weight-bold">
-            Time Tracking
-          </label>
-          <Slider
-            tooltipVisible
-            // range={{ draggableTrack: true }}
-            max={
-              Number(timeTracking.timeSpent) +
-              Number(timeTracking.timeRemaining)
-            }
-            onChange={(value) => {
-              setFieldValue("timeTrackingSpent", Number(value));
-              setTimeTracking({
-                ...timeTracking,
-                timeSpent: value,
-              });
-            }}
-            value={timeTracking.timeSpent}
-          />
-          <div className="row">
-            <div className="col-6">
-              <label htmlFor="timeTrackingSpent">Time spent</label>{" "}
-              <InputNumber
-                min={1}
-                max={100000}
-                value={timeTracking.timeSpent}
-                onChange={(value) => {
-                  setFieldValue("timeTrackingSpent", Number(value));
-                  setTimeTracking({
-                    ...timeTracking,
-                    timeSpent: value,
-                  });
-                }}
-                id="timeTrackingSpent"
-                name="timeTrackingSpent"
-              />
-              <div className="text-danger">{errors.timeTrackingSpent}</div>
-            </div>
-            <div className="col-6">
-              <label htmlFor="timeTrackingRemaining">Time remaining</label>{" "}
-              <InputNumber
-                min={1}
-                max={100000}
-                value={timeTracking.timeRemaining}
-                onChange={(value) => {
-                  setFieldValue("timeTrackingRemaining", Number(value));
-                  setTimeTracking({
-                    ...timeTracking,
-                    timeRemaining: value,
-                  });
-                }}
-                id="timeTrackingRemaining"
-                name="timeTrackingRemaining"
-              />
-              <div className="text-danger ml-1">
-                {errors.timeTrackingRemaining}
-              </div>
-            </div>
-          </div>
-        </div>
+        <TimeTracking
+          timeTrackingSpent={values.timeTrackingSpent}
+          timeTrackingRemaining={values.timeTrackingRemaining}
+          errors={errors}
+          setFieldValue={setFieldValue}
+        />
         <div className="form-group">
           <label htmlFor="description" className="font-weight-bold">
             Description
@@ -237,7 +180,7 @@ const CreateTaskFormik = withFormik({
     originalEstimate: 0,
     timeTrackingSpent: 0,
     timeTrackingRemaining: 0,
-    typeId: "",
+    typeId: 0,
     statusId: "",
     listUserAsign: [],
     description: "",
@@ -257,8 +200,7 @@ const CreateTaskFormik = withFormik({
     projectId: Yup.string().required("project is required"),
   }),
   handleSubmit: (data, { props, setSubmitting }) => {
-    console.log("data create task", data);
-    // props.dispatch(actCreateTaskSaga(data));
+    props.dispatch(actCreateTaskSaga(data));
   },
   displayName: "CreateTask",
 })(withModalForm(ModalCreateTask, SHOW_MODAL_CREATE_TASK));

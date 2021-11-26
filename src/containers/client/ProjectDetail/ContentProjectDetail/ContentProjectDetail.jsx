@@ -1,80 +1,52 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { actSetTaskDetailRedux } from "../ModalInfoTaskProjectDetail/module/action";
 
 export default function ContentProjectDetail(props) {
+  const disPatch = useDispatch();
   const { listTask } = props;
+
   const renderListTask = () => {
-    return listTask?.map((task, idx) => (
-      <div className="card" key={idx}>
-        <div className="card-header">BACKLOG 3</div>
+    return listTask?.map((taskListDetail, idx) => (
+      <div className="card" key={idx} style={{ height: "auto" }}>
+        <div className="card-header">{taskListDetail.statusName}</div>
         <ul className="list-group list-group-flush">
-          <li
-            className="list-group-item"
-            data-toggle="modal"
-            data-target="#infoModal"
-            style={{ cursor: "pointer" }}
-          >
-            <p>
-              Each issue has a single reporter but can have multiple assignees
-            </p>
-            <div className="block" style={{ display: "flex" }}>
-              <div className="block-left">
-                <i className="fa fa-bookmark" />
-                <i className="fa fa-arrow-up" />
-              </div>
-              <div className="block-right">
-                <div className="avatar-group" style={{ display: "flex" }}>
-                  <div className="avatar">
-                    <img
-                      src={
-                        require("../../../../assets/img/download(1).jfif")
-                          .default
-                      }
-                    />
+          {taskListDetail.lstTaskDeTail?.map((task, idx) => {
+            return (
+              <li
+                key={idx}
+                className="list-group-item"
+                data-toggle="modal"
+                data-target="#infoModal"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  disPatch(actSetTaskDetailRedux(task));
+                }}
+              >
+                <p className="font-weight-300">{task.taskName}</p>
+                {/* <p>
+                  Each issue has a single reporter but can have multiple
+                  assignees
+                </p> */}
+                <div className="block" style={{ display: "flex" }}>
+                  <div className="block-left">
+                    <p>{task.priorityTask.priority}</p>
                   </div>
-                  <div className="avatar">
-                    <img
-                      src={
-                        require("../../../../assets/img/download(2).jfif")
-                          .default
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li className="list-group-item">
-            <p>
-              Each issue has a single reporter but can have multiple assignees
-            </p>
-            <div className="block" style={{ display: "flex" }}>
-              <div className="block-left">
-                <i className="fa fa-check-square" />
-                <i className="fa fa-arrow-up" />
-              </div>
-              <div className="block-right">
-                <div className="avatar-group" style={{ display: "flex" }}>
-                  <div className="avatar">
-                    <img
-                      src={
-                        require("../../../../assets/img/download(1).jfif")
-                          .default
-                      }
-                    />
-                  </div>
-                  <div className="avatar">
-                    <img
-                      src={
-                        require("../../../../assets/img/download(2).jfif")
-                          .default
-                      }
-                    />
+                  <div className="block-right">
+                    <div className="avatar-group" style={{ display: "flex" }}>
+                      {task.assigness.map((user, idx2) => {
+                        return (
+                          <div key={idx2} className="avatar">
+                            <img src={user.avatar} />
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </li>
-          <li className="list-group-item">Vestibulum at eros</li>
+              </li>
+            );
+          })}
         </ul>
       </div>
     ));
