@@ -1,24 +1,34 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import CreateProject from "./containers/client/CreateProject/CreateProject";
-import MainBoard from "./containers/client/MainBoard/MainBoard";
-import ManagerProject from "./containers/client/ManagerProject/ManagerProject";
-import ProjectDetail from "./containers/client/ProjectDetail/ProjectDetail";
-import PageLogin from "./containers/shared/Auth/Login/PageLogin";
-import ClientLayout from "./layouts/ClientLayout/ClientLayout";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import CreateProject from './containers/client/CreateProject/CreateProject';
+import MainBoard from './containers/client/MainBoard/MainBoard';
+import ManagerProject from './containers/client/ManagerProject/ManagerProject';
+import ProjectDetail from './containers/client/ProjectDetail/ProjectDetail';
+import Login from './containers/shared/Auth/Login/Login';
+import AuthLayout from './layouts/AuthLayout/AuthLayout';
+import ClientLayout from './layouts/ClientLayout/ClientLayout';
 
 function App() {
   return (
     <div className="App">
       <Switch>
-        <ClientLayout path="/" exact Component={MainBoard} />
-        <ClientLayout path="/mainboard" Component={MainBoard} />
-        <ClientLayout path="/createproject" Component={CreateProject} />
-        <ClientLayout path="/managerproject" Component={ManagerProject} />
+        <ClientLayout isPrivate path="/" exact Component={MainBoard} />
+        <ClientLayout isPrivate path="/mainboard" Component={MainBoard} />
         <ClientLayout
+          isPrivate
+          path="/createproject"
+          Component={CreateProject}
+        />
+        <ClientLayout
+          isPrivate
+          path="/managerproject"
+          Component={ManagerProject}
+        />
+        <ClientLayout
+          isPrivate
           path="/projectdetail/:projectId"
           Component={ProjectDetail}
         />
-        <Route path="/login" component={PageLogin} />
+        <AuthLayout path="/login" Component={Login} />
       </Switch>
     </div>
   );

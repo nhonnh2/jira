@@ -12,8 +12,7 @@ import { connect } from "react-redux";
 import * as Yup from "yup";
 import Logo from "../../../../components/Logo/Logo";
 import { actLoginSaga } from "../module/action";
-import "./formLoginStyle.scss";
-function FormLogin(props) {
+function Login(props) {
   const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
     props;
   return (
@@ -100,5 +99,5 @@ const LoginJiraFormik = withFormik({
   },
 
   displayName: "BasicForm",
-})(FormLogin);
+})(Login);
 export default connect()(LoginJiraFormik);
