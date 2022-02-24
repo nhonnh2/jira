@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Layout, Menu } from "antd";
+import React, { useState } from 'react';
+import { Layout, Menu } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -8,10 +8,12 @@ import {
   QuestionCircleOutlined,
   VideoCameraOutlined,
   UploadOutlined,
-} from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import { actShowModalCreateTask } from "../../hocs/hocModalForm/module/action";
-import ModalCreateTask from "./modal/ModalCreateTask/ModalCreateTask";
+  LogoutOutlined,
+} from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import { actShowModalCreateTask } from '../../hocs/hocModalForm/module/action';
+import ModalCreateTask from './modal/ModalCreateTask/ModalCreateTask';
+import { actLogoutSaga } from '../../containers/shared/Auth/module/action';
 
 const { Header, Sider, Content } = Layout;
 export default function SideBar() {
@@ -43,7 +45,7 @@ export default function SideBar() {
           <i className="fab fa-jira"></i>
         </div>
 
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1" icon={<SearchOutlined />}>
             RECENT ISSUES
           </Menu.Item>
@@ -58,8 +60,17 @@ export default function SideBar() {
           </Menu.Item>
           <Menu.Item
             key="3"
+            onClick={() => {
+              disPatch(actLogoutSaga());
+            }}
+            icon={<LogoutOutlined />}
+          >
+            LOGOUT
+          </Menu.Item>
+          <Menu.Item
+            key="4"
             icon={<QuestionCircleOutlined />}
-            style={{ position: "absolute", bottom: "5%", width: "100%" }}
+            style={{ position: 'absolute', bottom: '5%', width: '100%' }}
           >
             ABOUT
           </Menu.Item>

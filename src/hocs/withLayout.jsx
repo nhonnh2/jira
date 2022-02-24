@@ -19,11 +19,10 @@ const withLayout = (WrappedComponent) => {
       />
     );
     if (isPrivate) {
-      if (userLogin.id) {
-        return content;
+      if (!userLogin.id) {
+        return <Redirect to="/login" />;
       }
-
-      return <Redirect to="/login" />;
+      return content;
     }
     return content;
   };

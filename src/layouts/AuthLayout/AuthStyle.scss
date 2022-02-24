@@ -11,12 +11,16 @@
             width: 70%;
             height: 40px;
         }
+        .text-error {
+            font-size: 1rem;
+            margin-top: 10px;
+        }
         .btn-login {
             width: 35%;
             height: 45px;
             border: 1px solid lightskyblue;
             background-color: lightskyblue;
-            font-size: 1rem;
+            font-size: 0.9rem;
             &:hover {
                 background-color: rgb(215, 238, 252);
             }
@@ -34,13 +38,16 @@
             }
         }
         .social {
-            width: 70%;
+            width: auto;
             .btn-loginWith {
                 background-color: #4fa2ee;
             }
             span {
                 font-size: 0.9rem;
             }
+        }
+        .create-account {
+            font-size: 0.9rem;
         }
     }
 }

@@ -4,6 +4,8 @@ import BackGroundjiraAuth from './jiraAuth.png';
 
 import withLayout from '../../hocs/withLayout';
 import Loader from '../../components/Loader/Loader';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 const { Sider, Content } = Layout;
 const styleSider = {
   backgroundColor: `transparent`,
@@ -23,6 +25,8 @@ function AuthLayout(props) {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+  const { userLogin } = useSelector((state) => state.authReducer);
+
   useEffect(() => {
     window.onresize = () => {
       setSize({
@@ -31,25 +35,18 @@ function AuthLayout(props) {
       });
     };
   });
+  console.log('userLogin', userLogin);
+
+  if (userLogin.email) {
+    return <Redirect to={'/mainboard'} />;
+  }
   return (
     <>
       <Loader />
       <Layout style={styleBackground}>
         <Sider width={width / 1.7} height={height} style={styleSider}></Sider>
         <Layout>
-          <Content>
-            <div
-              style={
-                {
-                  // paddingLeft: "23%",
-                  // paddingTop: "2%",
-                  // paddingRight: "1%",
-                }
-              }
-            >
-              {props.children}
-            </div>
-          </Content>
+          <Content>{props.children}</Content>
         </Layout>
       </Layout>
     </>

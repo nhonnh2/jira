@@ -4,6 +4,7 @@ import MainBoard from './containers/client/MainBoard/MainBoard';
 import ManagerProject from './containers/client/ManagerProject/ManagerProject';
 import ProjectDetail from './containers/client/ProjectDetail/ProjectDetail';
 import Login from './containers/shared/Auth/Login/Login';
+import Register from './containers/shared/Auth/Register/Register';
 import AuthLayout from './layouts/AuthLayout/AuthLayout';
 import ClientLayout from './layouts/ClientLayout/ClientLayout';
 
@@ -29,6 +30,7 @@ function App() {
           Component={ProjectDetail}
         />
         <AuthLayout path="/login" Component={Login} />
+        <AuthLayout path="/register" Component={Register} />
       </Switch>
     </div>
   );
